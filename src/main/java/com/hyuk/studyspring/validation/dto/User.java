@@ -1,10 +1,11 @@
 package com.hyuk.studyspring.validation.dto;
 
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Pattern;
+import com.hyuk.studyspring.validation.annotation.YearMonth;
+import jakarta.validation.constraints.*;
 import org.springframework.validation.annotation.Validated;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class User {
 
@@ -18,6 +19,12 @@ public class User {
 
     @Pattern(regexp = "^\\d{2,3}-\\d{3,4}-\\d{4}$", message = "핸드폰 번호의 양식과 맞지 않습니다. 01x-xxxx-xxxx")
     private String phoneNumber;
+
+    @YearMonth
+    private String reqYearMonth;
+
+
+
 
     public String getName() {
         return name;
@@ -55,6 +62,17 @@ public class User {
         return this;
     }
 
+
+
+    public @Size(min = 6, max = 10) String getReqYearMonth() {
+        return reqYearMonth;
+    }
+
+    public User setReqYearMonth(@Size(min = 6, max = 10) String reqYearMonth) {
+        this.reqYearMonth = reqYearMonth;
+        return this;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -62,6 +80,7 @@ public class User {
                 ", age=" + age +
                 ", email='" + email + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
+                ", reqYearMonth='" + reqYearMonth + '\'' +
                 '}';
     }
 }
